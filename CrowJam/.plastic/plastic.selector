@@ -1,0 +1,4 @@
+repository "CrowJam@NestGameStudio@cloud"
+  path "/"
+    br "/main"
+    co "/main"
