@@ -9,7 +9,7 @@ public class ResourceScriptableObject : ScriptableObject
     public float amount;
 
     public bool automated;
-    public float cycleDuration;
+    public float cycleDuration = 60;
     public float increase;
     public float multiplier;
 }

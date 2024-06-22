@@ -20,6 +20,12 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
+
+        // faz um loop entre os resources
+        // verifica qual tá automatizado
+        // se entiver automatizado -> vai diminuindo o cycleDuration e verifica se ele chegou a 0
+        // se chegou a zero, aumenta o amount += increase e amount *= mulplier
+        // zera o cycleDuration
         foreach (var resource in resources)
         {
 
