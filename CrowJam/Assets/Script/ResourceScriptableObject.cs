@@ -7,6 +7,7 @@ public class ResourceScriptableObject : ScriptableObject
 {
     public ResourceType type;
     public float amount;
+    public float price;
 
     public bool automated;
     public float cycleDuration = 60;
@@ -17,5 +18,6 @@ public class ResourceScriptableObject : ScriptableObject
 public enum ResourceType
 {
     Money,
-    Other
+    Potato,
+    Corn
 }

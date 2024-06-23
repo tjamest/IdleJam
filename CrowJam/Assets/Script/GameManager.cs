@@ -6,16 +6,20 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject ButtonParent;
     public GameObject TextParent;
-    public GameObject TextPrefab;
 
-    public List<Button> buttons = new List<Button>();
+    public GameObject TextPrefab;
+    public GameObject ButtonPrefab;
+
     public List<ResourceScriptableObject> resources = new List<ResourceScriptableObject>();
 
+    protected List<Tuple<GameObject, ResourceType>> resourceButtons = new List<Tuple<GameObject, ResourceType>>();
     protected List<Tuple<GameObject, ResourceType>> resourceText = new List<Tuple<GameObject, ResourceType>>();
 
     public void Start()
     {
+        AddMoneyResource(1);
     }
 
     public void Update()
@@ -37,11 +41,21 @@ public class GameManager : MonoBehaviour
     public void AddMoneyResource(float value)
     {
         AddResource(ResourceType.Money, value);
+        Button button = GetResourceButton(ResourceType.Money).GetComponent<Button>();
+        button.onClick.AddListener(() => AddPotatoResource(0));
+        button.onClick.AddListener(() => AddResource(ResourceType.Money, 1));
     }
 
-    public void AddOtherResource(float value)
+    public void AddPotatoResource(float value)
     {
-        AddResource(ResourceType.Other, value);
+        AddResource(ResourceType.Potato, value);
+        Button button = GetResourceButton(ResourceType.Potato).GetComponent<Button>();
+        button.onClick.AddListener(() => AddCornResource(0));
+    }
+
+    public void AddCornResource(float value)
+    {
+        AddResource(ResourceType.Corn, value);
     }
 
     protected void AddResource(ResourceType type, float value)
@@ -55,7 +69,11 @@ public class GameManager : MonoBehaviour
             textChildren[0].text = ResourceSO.type.ToString();
             textChildren[1].text = ResourceSO.amount.ToString();
 
+            TextMeshProUGUI buttonText = ButtonPrefab.GetComponentInChildren<TextMeshProUGUI>();
+            buttonText.text = ResourceSO.type.ToString();
+
             resourceText.Add(new Tuple<GameObject, ResourceType>(Instantiate(TextPrefab, TextParent.transform), type));
+            resourceButtons.Add(new Tuple<GameObject, ResourceType>(Instantiate(ButtonPrefab, ButtonParent.transform), type));
         }
         else
         {
@@ -63,6 +81,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Resource Text
     protected void UpdateResourceText(ResourceType type, float amount)
     {
         foreach (var item in resourceText)
@@ -91,6 +110,22 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    // Resource Button
+    protected GameObject GetResourceButton(ResourceType type)
+    {
+        foreach (var item in resourceButtons)
+        {
+            if (item.Item2 == type)
+            {
+                return item.Item1;
+            }
+        }
+
+        return null;
+    }
+
+
+    // Resource SO
     protected ResourceScriptableObject GetResource(ResourceType type)
     {
         foreach (var resource in resources)

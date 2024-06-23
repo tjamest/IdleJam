@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ad8db1c069187944b41459c4d578bfa, type: 3}
-  m_Name: Test
+  m_Name: Potato
   m_EditorClassIdentifier: 
-  visible: 0
   type: 1
   amount: 0
+  price: 0
   automated: 0
-  cycleDuration: 0
+  cycleDuration: 60
   increase: 0
   multiplier: 0
